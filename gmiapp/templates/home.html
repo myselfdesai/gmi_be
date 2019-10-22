@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+	{{ form.hidden_tag() }}
+    {% for message in form.hospital_data_file.errors %}
+      <div>{{ message }}</div>
+    {% endfor %}
+    {% for message in form.flexstar_output_file.errors %}
+      <div>{{ message }}</div>
+    {% endfor %}
+    <div class="form-group">
+      {{ form.hospital_data_file.label() }}
+      {{ form.hospital_data_file(class="form-control-file") }}
+    </div>
+    <div class="form-group">
+      {{ form.flexstar_output_file.label() }}
+      {{ form.flexstar_output_file(class="form-control-file") }}
+    </div>
+    <input type="submit">
+</form>
+{% endblock content %}

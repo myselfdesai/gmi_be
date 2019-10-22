@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block content %}
+<form class="form-inline">
+  {{ form.hidden_tag() }}
+    {% for message in form.search_text.errors %}
+      <div>{{ message }}</div>
+    {% endfor %}
+    <div class="btn-group">
+        {{ form.criteria_choices(class="form-control btn btn-info dropdown-toggle") }}
+        {{ form.search_text }}
+        <input id="search_filter" type="submit">
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Patient ID</th>
+          <th scope="col">Hospital Barcode</th>
+          <th scope="col">2d Barcode</th>
+          <th scope="col">Slot Position</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in form.browser_list %}
+        <tr>
+          <th scope="row">{{row[0].patient_id}}</th>
+          <td>{{row[0].barcode}}</td>
+          <td>{{row[1].twod_barcode}}</td>
+          <td>{{row[1].slot_position}}</td>
+        </tr>
+        {% endfor %}
+        
+      </tbody>
+    </table>
+</form>
+
+
+
+<script>
+    $(document).ready(function() {
+        $('form').submit(function (e) {
+          console.log('data');
+            var url = "{{ url_for('searchsample') }}"; // send the form data here.
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $('form').serialize(), // serializes the form's elements.
+                success: function (data) {
+                    console.log(data)  // display the returned data in the console.
+                }
+            });
+            e.preventDefault(); // block the traditional submission of the form.
+        });
+        // Inject our CSRF token into our AJAX request.
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ form.csrf_token._value() }}")
+                }
+            }
+        })
+    });
+</script>
+{% endblock content %}
