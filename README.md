@@ -2,6 +2,8 @@
 ## Version
 python 3.6
 
+linters: Flake 8
+
 ## Installation
 
 create envirnoment 
@@ -46,4 +48,9 @@ $ pip install -r requirements.txt
 
 ```
 python run.py
+```
+
+open browser and goto 
+```
+http://localhost:5000/
 ```
