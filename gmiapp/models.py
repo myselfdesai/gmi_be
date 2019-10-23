@@ -17,7 +17,7 @@ class Flexstar(db.Model):
 	twod_barcode = db.Column(db.String(10))
 	slot_position = db.Column(db.String(5))
 	hospital = relationship("Hospital", backref=backref("flexstar"))
-	
+
 	def __repr__(self):
 		return f"Flexstar('{self.twod_barcode}','{self.slot_position}')"
 
@@ -28,7 +28,6 @@ class HospitalSchema(ma.ModelSchema):
 
 
 class FlexstarSchema(ma.ModelSchema):
-	# hospital = ma.Nested(HospitalSchema, many=True)
 	class Meta:
 		model = Flexstar
 

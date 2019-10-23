@@ -31,33 +31,68 @@
         
       </tbody>
     </table>
+
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="search_result_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="searchModalLabel">Search Result</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 </form>
 
 
 
 <script>
-    $(document).ready(function() {
-        $('form').submit(function (e) {
-          console.log('data');
-            var url = "{{ url_for('searchsample') }}"; // send the form data here.
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: $('form').serialize(), // serializes the form's elements.
-                success: function (data) {
-                    console.log(data)  // display the returned data in the console.
-                }
-            });
-            e.preventDefault(); // block the traditional submission of the form.
-        });
-        // Inject our CSRF token into our AJAX request.
-        $.ajaxSetup({
-            beforeSend: function(xhr, settings) {
-                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
-                    xhr.setRequestHeader("X-CSRFToken", "{{ form.csrf_token._value() }}")
-                }
-            }
-        })
-    });
+  $(document).ready(function() {
+      $('form').submit(function (e) {
+          var url = "{{ url_for('searchsample') }}"; // send the form data here.
+          $.ajax({
+              type: "POST",
+              url: url,
+              data: $('form').serialize(), // serializes the form's elements.
+              success: function (data) {
+                  $(".modal-body").empty();
+                  if(data.data.hospital_json.length == 0){
+                    var resHTML = "<h3> No result found </h3>"
+                  }else{
+                    var resHTML = "<ul class='list-group'>"+
+                              "<li class='list-group-item'>Patient ID : "+data.data.hospital_json[0].patient_id+"</li>"+
+                              "<li class='list-group-item'>2d Barcode : "+ data.data.flexstar_json[0].twod_barcode +" </li>"+
+                              "<li class='list-group-item'>Slot Position : "+data.data.flexstar_json[0].slot_position +"</li>"+
+                              "</ul>";
+                  }
+                  $(".modal-body").append( resHTML );
+                  $("#search_result_modal").modal('show');
+              }
+          });
+          e.preventDefault(); // block the traditional submission of the form.
+      });
+      // Inject our CSRF token into our AJAX request.
+      $.ajaxSetup({
+          beforeSend: function(xhr, settings) {
+              if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                  xhr.setRequestHeader("X-CSRFToken", "{{ form.csrf_token._value() }}")
+              }
+          }
+      })
+  });
 </script>
 {% endblock content %}
