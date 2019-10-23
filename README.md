@@ -2,10 +2,10 @@
 Its a application for data processing
 
 ## Features
-– Enable user to upload both input files
-– Parse input files and save data to DB
-– Display data
-– Simple Search
+- Enable user to upload both input files
+- Parse input files and save data to DB
+- Display data
+- Simple Search
 
 ## Version
 python 3.6
