@@ -8,8 +8,8 @@ Its a application for data processing
 - Simple Search
 
 ## Version
-python 3.6
-linters: Flake 8
+- python 3.6
+- linters: Flake 8
 
 
 ## Flask Application Structure 
@@ -46,3 +46,5 @@ To use this project, follow these steps:
 2. Install requirements (`$ pip install -r requirements.txt`)
 3. Run application (` python run.py `)
 4. Go To browser (` http://localhost:5000/ `)
+
+
