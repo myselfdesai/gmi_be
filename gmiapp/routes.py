@@ -44,6 +44,11 @@ def home():
 		# parse flexstar output csv file and save data to Flexstar table in db
 		with open(csv_file_path, 'r') as filecsv:
 			csv_reader = DictReader(filecsv)
+			"""
+			As idea is to get xml data fields. Every slot row has number 1 to 12 so we calculate below 
+			and then assign specific alphabet using list(declared as alphabet_slot). This is used to 
+			denote slot as a co-ordinates ex. A:10
+			"""
 			for row in csv_reader:
 				if int(row['well_position']) % 12 == 0:
 					slot_pos = alphabet_slot[count_index_alphabet] + ':' + row['well_position']
@@ -54,7 +59,7 @@ def home():
 				db.session.add(flexstar_db_data)
 				db.session.commit()
 		flash (f'DNA Data extracted from both the files and saved succefully', 'success')
-		# return redirect(url_for('dashboard'))
+		return redirect(url_for('dashboard'))
 	return render_template('home.html', title='Upload Files', form=form)
 
 

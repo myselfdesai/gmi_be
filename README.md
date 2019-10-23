@@ -42,7 +42,7 @@ $ pip install -r requirements.txt
 
 ```
 
-##How to run the application
+## How to run the application
 
 ```
 python run.py
