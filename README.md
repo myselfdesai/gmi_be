@@ -1,21 +1,16 @@
+# gmi_be
+Build an application for data processing
+
+## Features
+– Enable user to upload both input files
+– Parse input files and save data to DB
+– Display data
+– Simple Search
 
 ## Version
 python 3.6
-
 linters: Flake 8
 
-## Installation
-
-create envirnoment 
-```
-python3 -m venv venv 
-
-```
-Install with pip:
-goto gmi_be directory and install requirement.txt 
-```
-$ pip install -r requirements.txt
-```
 
 ## Flask Application Structure 
 ```
@@ -44,13 +39,10 @@ $ pip install -r requirements.txt
 
 ```
 
-## How to run the application
+## How to Use
 
-```
-python run.py
-```
-
-open browser and goto 
-```
-http://localhost:5000/
-```
+To use this project, follow these steps:
+1. Create your working environment.
+2. Install requirements (`$ pip install -r requirements.txt`)
+3. Run application (` python run.py `)
+4. Go To browser (` http://localhost:5000/ `)
