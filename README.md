@@ -1,5 +1,5 @@
-# gmi_be
-Build an application for data processing
+## gmi_be
+Its a application for data processing
 
 ## Features
 – Enable user to upload both input files
